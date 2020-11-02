@@ -1,4 +1,4 @@
-package com.manus.app.registrationloginspringbootsecuritythymeleaf.model;
+package com.manus.app.registrationloginspringbootsecuritythymeleaf.model.entity;
 
 import javax.persistence.*;
 import java.util.List;

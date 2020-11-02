@@ -1,4 +1,4 @@
-package com.manus.app.registrationloginspringbootsecuritythymeleaf.model;
+package com.manus.app.registrationloginspringbootsecuritythymeleaf.model.entity;
 
 import javax.persistence.*;
 
@@ -10,6 +10,10 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    public Role(String name) {
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
