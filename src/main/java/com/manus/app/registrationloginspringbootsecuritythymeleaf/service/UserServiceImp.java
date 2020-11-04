@@ -6,6 +6,8 @@ import com.manus.app.registrationloginspringbootsecuritythymeleaf.model.entity.U
 import com.manus.app.registrationloginspringbootsecuritythymeleaf.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -29,5 +31,10 @@ public class UserServiceImp implements UserService {
                 Arrays.asList(new Role("ROLE_USER"))
         );
         return userRepository.save(user);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        return null;
     }
 }
