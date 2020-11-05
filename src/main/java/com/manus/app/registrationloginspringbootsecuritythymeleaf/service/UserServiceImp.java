@@ -52,7 +52,7 @@ public class UserServiceImp implements UserService {
     }
 
     //Spring Security expecting authorities
-    //thats why here we converting roles to authorities
+    //that's why here we converting roles to authorities
     private List<? extends GrantedAuthority> mapRolesToAuthorities(List<Role> roles){
 
        return roles.stream()

@@ -31,6 +31,9 @@ public class User {
                     name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
 
+    public User() {
+    }
+
     public User(String firstName, String lastName, String email, String password, List<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
