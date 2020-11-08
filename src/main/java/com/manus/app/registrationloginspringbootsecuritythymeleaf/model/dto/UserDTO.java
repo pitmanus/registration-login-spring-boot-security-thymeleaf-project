@@ -1,9 +1,12 @@
 package com.manus.app.registrationloginspringbootsecuritythymeleaf.model.dto;
 
 
+import com.manus.app.registrationloginspringbootsecuritythymeleaf.model.entity.Role;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 public class UserDTO {
 
@@ -29,6 +32,12 @@ public class UserDTO {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+    }
+
+    public UserDTO(String firstName, String lastName,  String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
     }
 
     public String getFirstName() {
@@ -62,4 +71,5 @@ public class UserDTO {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

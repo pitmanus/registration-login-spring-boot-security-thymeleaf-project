@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,6 @@ public class UserServiceImp implements UserService {
         this.userRepository = userRepository;
     }
 
-    @Override
     public User save(UserDTO userDTO) {
         User user = new User(
                 userDTO.getFirstName(),
@@ -40,6 +40,12 @@ public class UserServiceImp implements UserService {
                 Arrays.asList(new Role("ROLE_USER"))
         );
         return userRepository.save(user);
+    }
+
+    public List<UserDTO> getAllUsers() {
+        return userRepository.findAll().
+                stream().map(user -> new UserDTO(user.getFirstName(), user.getLastName(),user.getEmail()))
+                .collect(Collectors.toList());
     }
 
     @Override

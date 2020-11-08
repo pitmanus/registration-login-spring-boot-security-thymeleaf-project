@@ -1,6 +1,8 @@
 package com.manus.app.registrationloginspringbootsecuritythymeleaf.configuration;
 
 import com.manus.app.registrationloginspringbootsecuritythymeleaf.service.UserService;
+import com.manus.app.registrationloginspringbootsecuritythymeleaf.service.UserServiceImp;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +25,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public ModelMapper modelMapper(){
+        return new ModelMapper();
+    }
+
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider(){
