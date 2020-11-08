@@ -5,7 +5,10 @@ import com.manus.app.registrationloginspringbootsecuritythymeleaf.model.entity.U
 import com.manus.app.registrationloginspringbootsecuritythymeleaf.service.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -20,10 +23,16 @@ public class MainController {
     }
 
 
-    @GetMapping("/")
+    @GetMapping({"/index", "/"})
     public ModelAndView getAllUsers(){
         List<UserDTO> userDTOList = userServiceImp.getAllUsers();
         return new ModelAndView("index", "userList", userDTOList);
+    }
+
+    @PostMapping("/deleteuser")
+    public String deleteUser(@ModelAttribute UserDTO userDTO){
+        userServiceImp.deleteUser(userDTO.getId());
+        return "redirect:/index";
     }
 
     @GetMapping("/login")

@@ -31,6 +31,7 @@ public class UserServiceImp implements UserService {
         this.userRepository = userRepository;
     }
 
+    @Override
     public User save(UserDTO userDTO) {
         User user = new User(
                 userDTO.getFirstName(),
@@ -42,9 +43,13 @@ public class UserServiceImp implements UserService {
         return userRepository.save(user);
     }
 
+    public void deleteUser(Long id){
+        userRepository.deleteById(id);
+    }
+
     public List<UserDTO> getAllUsers() {
         return userRepository.findAll().
-                stream().map(user -> new UserDTO(user.getFirstName(), user.getLastName(),user.getEmail()))
+                stream().map(user -> new UserDTO(user.getId(), user.getFirstName(), user.getLastName(),user.getEmail()))
                 .collect(Collectors.toList());
     }
 

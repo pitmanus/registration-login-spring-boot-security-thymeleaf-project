@@ -10,6 +10,7 @@ import java.util.List;
 
 public class UserDTO {
 
+    private Long id;
     @NotNull
     @Size(min=2, max = 30, message = "Length must be from 2 to 30 letters")
     private String firstName;
@@ -34,10 +35,19 @@ public class UserDTO {
         this.password = password;
     }
 
-    public UserDTO(String firstName, String lastName,  String email) {
+    public UserDTO(Long id, String firstName, String lastName,  String email) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
