@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Main page</title>
+    <title>Find user</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -36,10 +36,33 @@
 <br/>
 <h3>Hello, <span sec:authentication="principal.username"></span>!</h3>
 
-<h2 class="text-center">Operations:</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
 
-<h4><a class="text-dark" href="/users">Show all users</a></h4>
-<h4><a class="text-dark" href="/finduser">Find user by surname</a></h4>
+            <h1>Find user by surname</h1>
+
+            <form th:action="@{/finduserbyname}" method="get" th:object="${foundUser}">
+
+                <div class="form-group">
+                    <label class="control-label" for="surname"></label>
+                    <input type="text" id="surname" name="lastName" class="form-control" required autofocus="autofocus" placeholder="Enter surname"/>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <input type="submit" name="find-submit" id="find-submit" class="form-control btn btn-primary" value="Find"></input>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="form-group">
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

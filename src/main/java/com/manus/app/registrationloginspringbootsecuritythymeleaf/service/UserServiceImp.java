@@ -53,6 +53,13 @@ public class UserServiceImp implements UserService {
                 .collect(Collectors.toList());
     }
 
+
+    public List<UserDTO> getBySurname(String surName){
+        return userRepository.findByLastName(surName)
+        .stream().map(user -> new UserDTO(user.getId(), user.getFirstName(), user.getLastName(),user.getEmail()))
+                .collect(Collectors.toList());
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username);

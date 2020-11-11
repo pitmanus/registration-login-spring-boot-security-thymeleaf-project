@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Main page</title>
+    <title>Users</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -36,10 +36,42 @@
 <br/>
 <h3>Hello, <span sec:authentication="principal.username"></span>!</h3>
 
-<h2 class="text-center">Operations:</h2>
+<h2 class="text-center">List of users:</h2>
 
-<h4><a class="text-dark" href="/users">Show all users</a></h4>
-<h4><a class="text-dark" href="/finduser">Find user by surname</a></h4>
+<table class="table table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Surname</th>
+        <th scope="col">Login</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Action</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr style="transform: rotate(0);" th:each="user: ${userList}">
+        <form th:action="@{/deleteuser}" th:method="post" th:object="${user}">
+            <td th:type="number" th:text="${user.id}"/></td>
+            <td th:text="${user.firstName}"/>
+            <td th:text="${user.lastName}"/>
+            <td th:text="${user.email}"/>
+            <td><a th:href="@{/index/{id}(id=${user.id})}">Edit</a></td>
+            <td>
+                <input type="hidden" name="id" th:value="${user.id}">
+                <button type="submit" class="btn btn-danger">
+                    <span class="gyphicon glyphicon-remove"></span> Remove
+                </button>
+            </td>
+        </form>
+    </tr>
+    </tbody>
+</table>
+
+<br/>
+
+<h4><a class="text-dark" href="/index">Back to Main</a></h4>
 
 </body>
 </html>
