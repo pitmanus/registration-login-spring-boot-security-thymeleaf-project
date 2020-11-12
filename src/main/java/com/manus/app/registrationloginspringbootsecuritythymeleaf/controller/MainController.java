@@ -2,22 +2,24 @@ package com.manus.app.registrationloginspringbootsecuritythymeleaf.controller;
 
 import com.manus.app.registrationloginspringbootsecuritythymeleaf.model.dto.UserDTO;
 import com.manus.app.registrationloginspringbootsecuritythymeleaf.model.entity.User;
+import com.manus.app.registrationloginspringbootsecuritythymeleaf.repository.UserRepository;
 import com.manus.app.registrationloginspringbootsecuritythymeleaf.service.UserServiceImp;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 public class MainController {
 
     private UserServiceImp userServiceImp;
+    @Autowired
+    private UserRepository userRepository;
 
     public MainController(UserServiceImp userServiceImp) {
         this.userServiceImp = userServiceImp;
@@ -40,6 +42,23 @@ public class MainController {
         return new ModelAndView("finduser", "foundUser", new UserDTO());
     }
 
+    @GetMapping("/edituser/{id}")
+    public ModelAndView editUser(@PathVariable Long id){
+        UserDTO userDTO = userServiceImp.getById(id);
+        return new ModelAndView("edituser", "selectedUser", userDTO);
+    }
+
+    @PostMapping("/editusercredentials")
+    public String editUserCredentials(@Valid @ModelAttribute("selectedUser") UserDTO userDTO, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            System.out.println("BINDING RESULT ERROR");
+            return "/edituser";
+        }else {
+            userServiceImp.update(userDTO);
+            return "redirect:/users";
+        }
+    }
+
     @GetMapping("/finduserbyname")
     public ModelAndView findByName(@ModelAttribute UserDTO userDTO){
         List<UserDTO> users = userServiceImp.getBySurname(userDTO.getLastName());
@@ -49,8 +68,9 @@ public class MainController {
     @PostMapping("/deleteuser")
     public String deleteUser(@ModelAttribute UserDTO userDTO){
         userServiceImp.deleteUser(userDTO.getId());
-        return "redirect:/index";
+        return "redirect:/users";
     }
+
 
 
     @GetMapping("/login")

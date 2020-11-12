@@ -21,7 +21,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#" th:href="@{/}">Registration and Login App
+            <a class="navbar-brand" href="#" th:href="@{/}">Registration and Login CRUD App
             </a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
@@ -57,12 +57,10 @@
             <td th:text="${user.firstName}"/>
             <td th:text="${user.lastName}"/>
             <td th:text="${user.email}"/>
-            <td><a th:href="@{/index/{id}(id=${user.id})}">Edit</a></td>
+            <td><a class="btn btn-warning" th:href="@{/edituser/{id}(id=${user.id})}">Edit</a></td>
             <td>
                 <input type="hidden" name="id" th:value="${user.id}">
-                <button type="submit" class="btn btn-danger">
-                    <span class="gyphicon glyphicon-remove"></span> Remove
-                </button>
+                <button type="submit" class="btn btn-danger">Remove</button>
             </td>
         </form>
     </tr>

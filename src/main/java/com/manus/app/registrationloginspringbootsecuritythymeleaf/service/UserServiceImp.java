@@ -43,6 +43,19 @@ public class UserServiceImp implements UserService {
         return userRepository.save(user);
     }
 
+    public User update(UserDTO userDTO) {
+        User user = new User(
+                userDTO.getId(),
+                userDTO.getFirstName(),
+                userDTO.getLastName(),
+                userDTO.getEmail(),
+                passwordEncoder.encode(userDTO.getPassword()),
+                Arrays.asList(new Role(userDTO.getRoles().stream().findFirst().get().getName()))
+        );
+        return userRepository.save(user);
+    }
+
+
     public void deleteUser(Long id){
         userRepository.deleteById(id);
     }
@@ -59,6 +72,14 @@ public class UserServiceImp implements UserService {
         .stream().map(user -> new UserDTO(user.getId(), user.getFirstName(), user.getLastName(),user.getEmail()))
                 .collect(Collectors.toList());
     }
+
+    public UserDTO getById(Long id){
+        return userRepository.findById(id)
+                .stream().map(user -> new UserDTO(user.getId(), user.getFirstName(), user.getLastName(),user.getEmail(), user.getPassword(), user.getRoles()))
+                .findAny()
+                .orElse(null);
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
